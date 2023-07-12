@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - RingClear
+  - FireRing
+  - Floor
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -40,4 +44,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 378210535
+    locked: 0
+  - name: MiddleGround
+    uniqueID: 4200447147
+    locked: 0
+  - name: Player
+    uniqueID: 3787490769
+    locked: 0
+  - name: ForeGround
+    uniqueID: 3624036939
+    locked: 0
+  - name: FrontUi
+    uniqueID: 4027344261
     locked: 0
