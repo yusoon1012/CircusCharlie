@@ -8,10 +8,12 @@ public class ScrollingObject : MonoBehaviour
     Rigidbody2D fireRigid;
     public float speed = 5f;
     PlayerController playercon;
+    EnemySpawner enemySpawner;
     // Start is called before the first frame update
     void Start()
     {
         playercon = GameObject.FindAnyObjectByType<PlayerController>();
+        enemySpawner = GameObject.FindAnyObjectByType<EnemySpawner>();
         fireRing = gameObject;
         
     }
@@ -19,7 +21,11 @@ public class ScrollingObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playercon.isPlayerDie==false)
+        if(playercon.isGoal==true)
+        {
+            return;
+        }
+        if (playercon.isPlayerDie == false )
         {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
 
@@ -31,6 +37,7 @@ public class ScrollingObject : MonoBehaviour
         if (collision.tag.Equals("RingClear"))
         {
             Destroy(fireRing);
+            enemySpawner.DestroyEnemy(fireRing);
         }
     }
 }

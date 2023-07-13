@@ -10,10 +10,7 @@ public class StageController : MonoBehaviour
     private int playerId = 0;
     PlayerController playerCon;
 
-    private bool isMoveRight = false;
-    private bool isMoveLeft = false;
-    private bool isRightJump = false;
-    private bool isLeftJump = false;
+    
     private int dir;
     // Start is called before the first frame update
     void Start()
@@ -28,6 +25,11 @@ public class StageController : MonoBehaviour
 
         if (playerCon.isPlayerDie == true)
         {
+            return;
+        }
+        if(playerCon.isGoal==true)
+        {
+
             return;
         }
         if (playerCon.isJump == false)
@@ -58,7 +60,7 @@ public class StageController : MonoBehaviour
 
 
         }
-        if (playerCon.isJump == true && transform.position.x > -45)
+        if (playerCon.isJump == true && transform.position.x > -45&&transform.position.x<0 )
         {
             transform.Translate(Vector3.left * dir * speed * Time.deltaTime);
         }
@@ -72,20 +74,28 @@ public class StageController : MonoBehaviour
            if (player.GetButton("Player Right")&&transform.position.x < -45&&playerCon.isJump==false)
             {
                 playerCon.transform.Translate(Vector3.right* speed * Time.deltaTime);
-            dir = -1;
+                 dir = -1;
                 
             }
+           else if(playerCon.isJump == true && transform.position.x < -45&&dir==-1)
+        {
+            playerCon.transform.Translate(Vector3.right* speed * Time.deltaTime);
+
+        }
             else if(player.GetButton("Player Left")&&transform.position.x < -45 && playerCon.isJump == false)
             {
                 playerCon.transform.Translate(Vector3.left * speed * Time.deltaTime);
             dir = 1;
             }
-
-        if (playerCon.isJump == true && transform.position.x < -45)
+        else if (transform.position.x < -45 && playerCon.isJump == true&&dir==1)
         {
-            playerCon.transform.Translate(Vector3.left * dir * speed * Time.deltaTime);
-
+            playerCon.transform.Translate(Vector3.left * speed * Time.deltaTime);
+           
         }
+
+
+
+
 
 
         //if (player.GetButton("Player Right")&&)

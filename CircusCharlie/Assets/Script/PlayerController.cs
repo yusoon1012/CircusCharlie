@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 using TMPro;
-using UnityEditor.SceneManagement;
+using UnityEditor;
 using static Rewired.ComponentControls.Effects.RotateAroundAxis;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerAudio = default;
     public bool isGround = false;
     public bool isJump = false;
+    public bool isGoal = false;
     private bool isGoLeft = false;
     private bool isGoRight = false;
     public bool isPlayerDie = false;
@@ -48,12 +50,20 @@ public class PlayerController : MonoBehaviour
 
         if (isJump == false)
         {
+            if (SceneManager.GetActiveScene().name == ("Stage1"))
+            {
             lionAnimator.SetBool("Lion Jump", isJump);
+                
+            }
 
             if (player.GetButtonDown("Player Jump") && isJump == false)
             {
                 isJump = true;
-                lionAnimator.SetBool("Lion Jump", isJump);
+                if (SceneManager.GetActiveScene().name == ("Stage1"))
+                {
+                    lionAnimator.SetBool("Lion Jump", isJump);
+
+                }
 
                 playerRigid.velocity = Vector2.zero;
                 playerRigid.AddForce(new Vector2(0, jumpForce));
@@ -92,9 +102,12 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        
-          lionAnimator.SetBool("Move Left", isGoLeft);
+            if (SceneManager.GetActiveScene().name == ("Stage1"))
+        {
+            lionAnimator.SetBool("Move Left", isGoLeft);
         lionAnimator.SetBool("Move Right", isGoRight);
+
+        }
 
         animator.SetBool("Move Right", isGoRight);
         animator.SetBool("Move Left", isGoLeft);
@@ -103,6 +116,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Die()
     {
+        isPlayerDie = true; 
         Debug.Log("Á×¾ú´Ù");
         animator.SetTrigger("Player Die");
         lionAnimator.SetTrigger("Player Die");
@@ -117,24 +131,27 @@ public class PlayerController : MonoBehaviour
             isGround = true;
             isJump = false;
         }
-        
+        if (collision.collider.tag.Equals("Goal"))
+        {
+            isGround = true;
+            isJump = false;
+            isGoal = true;
+            playerRigid.velocity = Vector2.zero;
+            animator.SetTrigger("Goal");
+            Debug.Log("°ñÀÎ");
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals("FireRing"))
+        if (collision.tag.Equals("Dead"))
         {
 
             isPlayerDie = true;
             Die();
 
         }
-        if (collision.tag.Equals("Goal"))
-        {
-            isGround = true;
-            isJump = false;
-            playerRigid.velocity = Vector2.zero;
-            Debug.Log("°ñÀÎ");
-        }
+       
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

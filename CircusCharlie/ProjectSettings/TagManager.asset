@@ -8,6 +8,8 @@ TagManager:
   - FireRing
   - Floor
   - Goal
+  - Dead
+  - Bonus
   layers:
   - Default
   - TransparentFX
@@ -56,6 +58,9 @@ TagManager:
     locked: 0
   - name: ForeGround
     uniqueID: 3624036939
+    locked: 0
+  - name: forefore
+    uniqueID: 901661533
     locked: 0
   - name: FrontUi
     uniqueID: 4027344261
