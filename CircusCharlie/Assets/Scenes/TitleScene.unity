@@ -371,7 +371,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253b55d57d414d54c89cab8237a35fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
+  highscoreText: {fileID: 0}
+  bonusText: {fileID: 0}
+  stageUi: {fileID: 0}
+  AddScore: {fileID: 0}
+  Crowd: {fileID: 0}
   backgroundMusic: {fileID: 0}
+  bonusScore: 5000
+  score: 0
 --- !u!4 &1225396266
 Transform:
   m_ObjectHideFlags: 0
@@ -481,7 +489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836040138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 80, z: -6482.3545}
+  m_LocalPosition: {x: 0, y: 80, z: 0}
   m_LocalScale: {x: 300, y: 300, z: 300}
   m_ConstrainProportionsScale: 0
   m_Children: []

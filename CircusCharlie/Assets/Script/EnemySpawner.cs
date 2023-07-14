@@ -88,7 +88,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else if(SceneManager.GetActiveScene().name=="Stage2")
             {
-                timeBetSpawn = Random.Range(2,4);
+                timeBetSpawn = Random.Range(1,4);
                 if (timeBetSpawn % 2 == 0)
                 {
                     timeBetSpawn += 1;

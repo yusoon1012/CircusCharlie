@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRing: {fileID: 8524533386649878087}
-  speed: 1
+  speed: 2
 --- !u!50 &8524533386649878107
 Rigidbody2D:
   serializedVersion: 4
