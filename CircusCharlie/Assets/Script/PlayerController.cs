@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
             lionAnimator.SetBool("Lion Jump", isJump);
                 
             }
+                animator.SetBool("Player Jump", isJump);
 
             if (player.GetButtonDown("Player Jump") && isJump == false)
             {
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
                 }
 
+                    animator.SetBool("Player Jump", isJump);
                 playerRigid.velocity = Vector2.zero;
                 playerRigid.AddForce(new Vector2(0, jumpForce));
 
@@ -116,10 +118,16 @@ public class PlayerController : MonoBehaviour
     }
     private void Die()
     {
-        isPlayerDie = true; 
+        isPlayerDie = true;
+        isJump = false;
+        animator.SetBool("Player Jump",isJump);
         Debug.Log("ав╬З╢ы");
         animator.SetTrigger("Player Die");
+        if(SceneManager.GetActiveScene().name=="Stage1")
+        {
         lionAnimator.SetTrigger("Player Die");
+
+        }
         playerRigid.velocity = Vector2.zero;
         playerRigid.gravityScale = 0;
     }

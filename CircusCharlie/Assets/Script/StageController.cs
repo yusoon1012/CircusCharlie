@@ -12,6 +12,7 @@ public class StageController : MonoBehaviour
 
     
     private int dir;
+    private int playerDir;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,7 @@ public class StageController : MonoBehaviour
                 }
                 
                 dir = -1;
+                playerDir = -1;
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
 
             }
@@ -51,6 +53,7 @@ public class StageController : MonoBehaviour
             {
                
                 dir = 1;
+                playerDir = 1;
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
             }
             else
@@ -75,7 +78,9 @@ public class StageController : MonoBehaviour
             {
                 playerCon.transform.Translate(Vector3.right* speed * Time.deltaTime);
                  dir = -1;
-                
+            playerDir = 1;
+
+
             }
            else if(playerCon.isJump == true && transform.position.x < -45&&dir==-1)
         {
@@ -86,10 +91,11 @@ public class StageController : MonoBehaviour
             {
                 playerCon.transform.Translate(Vector3.left * speed * Time.deltaTime);
             dir = 1;
+            playerDir = -1;
             }
         else if (transform.position.x < -45 && playerCon.isJump == true&&dir==1)
         {
-            playerCon.transform.Translate(Vector3.left * speed * Time.deltaTime);
+            playerCon.transform.Translate(Vector3.right *playerDir* speed * Time.deltaTime);
            
         }
 

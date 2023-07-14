@@ -15,18 +15,21 @@ public class GameManager : MonoBehaviour
     private float dieTimer = 0;
     private float dieRate = 2f;
     private int playerId = 0;
+
+    private float stageTimer = 0f;
+    private float stageRate = 5f;
     // Start is called before the first frame update
     void Start()
     {
         player = ReInput.players.GetPlayer(playerId);
         playerController = FindAnyObjectByType<PlayerController>();
         backgroundMusic = GetComponent<AudioSource>();
-        
+
     }
     // Update is called once per frame
     void Update()
     {
-       
+
 
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
@@ -49,15 +52,35 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Stage1");
                 dieRate = 2f;
             }
-            if(playerController.isGoal==true)
+
+
+
+
+            if (playerController.isGoal == true)
             {
-                SceneManager.LoadScene("Stage2");
+
+                stageTimer += Time.deltaTime;
 
             }
+            if (stageTimer >= stageRate)
+            {
+                stageTimer = 0;
+                SceneManager.LoadScene("Stage2");
+            }
         }
-        if (SceneManager.GetActiveScene().name == ("Stage2"))
+        else if (SceneManager.GetActiveScene().name == ("Stage2"))
         {
-
+            
+            if (playerController.isPlayerDie == true)
+            {
+                dieTimer += Time.deltaTime;
+            }
+            if (dieTimer >= dieRate)
+            {
+                dieTimer = 0;
+                SceneManager.LoadScene("Stage2");
+                dieRate = 2f;
+            }
         }
 
 
