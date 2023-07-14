@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip jumpclip;
     public AudioClip deathClip;
     public float jumpForce = 300f;
     GameObject playerObj;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private bool isGoLeft = false;
     private bool isGoRight = false;
     public bool isPlayerDie = false;
+    GameManager gameManager;
+    private int jumpsoundCount=0;
     ScrollingObject scroll;
     StageController stage;
     public float speed = 3f;
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour
         //lionAnimator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerObj = GetComponent<GameObject>();
-
+        gameManager = GameObject.FindAnyObjectByType<GameManager>();
         stage = GameObject.FindAnyObjectByType<StageController>();
         player = ReInput.players.GetPlayer(playerId);
     }
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         if (isJump == false)
         {
+            jumpsoundCount = 0;
             if (SceneManager.GetActiveScene().name == ("Stage1"))
             {
             lionAnimator.SetBool("Lion Jump", isJump);
@@ -97,8 +101,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (isJump == true)
         {
+           if(jumpsoundCount<1)
+            { 
+                playerAudio.PlayOneShot(jumpclip);
+                jumpsoundCount += 1;
+            }
 
-            
+
             isGoRight = false;
             isGoLeft = false;
         }
@@ -128,6 +137,9 @@ public class PlayerController : MonoBehaviour
         lionAnimator.SetTrigger("Player Die");
 
         }
+        gameManager.backgroundMusic.Stop();
+        playerAudio.clip = deathClip;
+        playerAudio.Play();
         playerRigid.velocity = Vector2.zero;
         playerRigid.gravityScale = 0;
     }
@@ -148,6 +160,7 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Goal");
             Debug.Log("°ñÀÎ");
         }
+        
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -159,7 +172,12 @@ public class PlayerController : MonoBehaviour
             Die();
 
         }
-       
+        if (collision.tag.Equals("Bonus"))
+        {
+            Debug.Log("Á¡¼öÈ¹µæ");
+            PlayerInfo.score += 100;
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
