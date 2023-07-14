@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highscoreText;
     public TMP_Text bonusText;
+    public GameObject stageUi;
 
     public AudioSource backgroundMusic;
     private float dieTimer = 0;
@@ -27,8 +28,17 @@ public class GameManager : MonoBehaviour
 
     private float stageTimer = 0f;
     private float stageRate = 5f;
+
+    private float uiTimer = 0f;
+    private float uiRate = 2f;
     public int score = 0;
     private int playerHpCount = 3;
+
+    private float gameOverTimer = 0;
+    private float gameOverRate = 5;
+    private int playerMhp = 3;
+
+    private bool loadScene = false;
     //private void Awake()
     //{
     //    if (instance)
@@ -61,6 +71,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerMhp = PlayerInfo.playerHp;
         //if(SceneManager.GetActiveScene().name == ("Stage1")|| SceneManager.GetActiveScene().name == ("Stage2"))
         //{
         //if(playerController.isPlayerDie==true)
@@ -69,29 +80,79 @@ public class GameManager : MonoBehaviour
         //}
 
         //}
+        Debug.LogFormat("playerHp : {0}", playerMhp);
+
+        if(SceneManager.GetActiveScene().name=="GameOver")
+        {
+            gameOverTimer += Time.deltaTime;
+            if(gameOverTimer>=gameOverRate)
+            {
+                gameOverTimer = 0;
+                PlayerInfo.playerHp = 3;
+                PlayerInfo.score = 0;
+                SceneManager.LoadScene("TitleScene");
+            }
+
+        }
 
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
             if (Input.anyKeyDown)
             {
-                SceneManager.LoadScene("Stage1");
+                SceneManager.LoadScene("Stage1Loading");
+               
+                
             }
 
         }
+
+        if(SceneManager.GetActiveScene().name == "Stage1Loading")
+        {
+            uiTimer += Time.deltaTime;
+            if(uiTimer>=uiRate)
+            {
+                uiTimer = 0f;
+                SceneManager.LoadScene("Stage1");
+
+
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "Stage2Loading")
+        {
+            uiTimer += Time.deltaTime;
+            if (uiTimer >= uiRate)
+            {
+                uiTimer = 0f;
+                SceneManager.LoadScene("Stage2");
+
+
+            }
+        }
+
+
         if (SceneManager.GetActiveScene().name == ("Stage1"))
         {
-
+            
             if (playerController.isPlayerDie == true)
             {
                 dieTimer += Time.deltaTime;
+                
             }
             if (dieTimer >= dieRate)
             {
                 dieTimer = 0;
-                SceneManager.LoadScene("Stage1");
+                if (playerMhp == 0)
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
+                else
+                {
+                SceneManager.LoadScene("Stage1Loading");
+
+                }
                 dieRate = 3.5f;
             }
-
+            
 
 
 
@@ -104,24 +165,46 @@ public class GameManager : MonoBehaviour
             if (stageTimer >= stageRate)
             {
                 stageTimer = 0;
-                SceneManager.LoadScene("Stage2");
+               
+               
+                SceneManager.LoadScene("Stage2Loading");
+
+                
             }
         }
         else if (SceneManager.GetActiveScene().name == ("Stage2"))
         {
             
+           
             if (playerController.isPlayerDie == true)
             {
                 dieTimer += Time.deltaTime;
+               
             }
             if (dieTimer >= dieRate)
             {
                 dieTimer = 0;
-                SceneManager.LoadScene("Stage2");
-                dieRate = 3.5f;
+                if (playerMhp == 0)
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
+                else
+                {
+                SceneManager.LoadScene("Stage2Loading");
+
+                }
+                
             }
         }
         scoreText.text = string.Format("SCORE : {0}", PlayerInfo.score);
+        float highScore = PlayerPrefs.GetFloat("HighScore");
+
+        if (PlayerInfo.score > highScore)
+        {
+            highScore = PlayerInfo.score;
+            PlayerPrefs.SetFloat("HighScore", highScore);
+        }
+        highscoreText.text = "HI :" + highScore;
     }//update()
 
    

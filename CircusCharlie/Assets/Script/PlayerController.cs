@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Die()
     {
+        PlayerInfo.playerHp -= 1;
         isPlayerDie = true;
         isJump = false;
         animator.SetBool("Player Jump",isJump);
