@@ -40,4 +40,6 @@ public class ScrollingObject : MonoBehaviour
             enemySpawner.DestroyEnemy(fireRing);
         }
     }
+
+    
 }

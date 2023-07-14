@@ -353,7 +353,7 @@ Transform:
   m_Children:
   - {fileID: 898114294}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &219961687
 GameObject:
@@ -1047,9 +1047,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 746461271}
   highscoreText: {fileID: 598161523}
-  bonusText: {fileID: 0}
+  bonusText: {fileID: 2144776416}
   stageUi: {fileID: 0}
+  AddScore: {fileID: 8300000, guid: 20a03ce3407080e4397726733426bf8e, type: 3}
+  Crowd: {fileID: 8300000, guid: 3ba3ba70fde0f89488603cd2a0ce5b21, type: 3}
   backgroundMusic: {fileID: 634664606}
+  bonusScore: 5000
   score: 0
 --- !u!4 &634664605
 Transform:
@@ -1685,7 +1688,7 @@ GameObject:
   - component: {fileID: 1680007468}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1704,6 +1707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpclip: {fileID: 8300000, guid: be6c4d34638780644b7b4abc0cbe5996, type: 3}
   deathClip: {fileID: 8300000, guid: a726d984a7357d34ba903f12351855d2, type: 3}
+  addScoreClip: {fileID: 8300000, guid: c44cfd94888e43c428549ea9cdaa5053, type: 3}
   jumpForce: 400
   animator: {fileID: 730906563}
   lionAnimator: {fileID: 164108984}
@@ -2803,6 +2807,17 @@ Transform:
   m_Father: {fileID: 1680007467}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144776416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4634448051823019309, guid: 36dd1da9caf55144c85341692050143b, type: 3}
+  m_PrefabInstance: {fileID: 4634448050892760189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3092429110214104906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3443,7 +3458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7538901238010921727, guid: 5e5fbe202cf79d641938bf649b17d2ba, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7538901238010921727, guid: 5e5fbe202cf79d641938bf649b17d2ba, type: 3}
       propertyPath: m_LocalPosition.x

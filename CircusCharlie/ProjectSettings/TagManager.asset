@@ -10,6 +10,8 @@ TagManager:
   - Goal
   - Dead
   - Bonus
+  - ExBonus
+  - MonkeyJump
   layers:
   - Default
   - TransparentFX

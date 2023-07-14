@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     public AudioClip jumpclip;
     public AudioClip deathClip;
+    public AudioClip addScoreClip;
     public float jumpForce = 300f;
     GameObject playerObj;
     Player player;
@@ -50,7 +51,18 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
+        if(isGoal == true)
+        {
+            playerAudio.clip = addScoreClip;
+            if (playerAudio.isPlaying == false)
+            {
+                playerAudio.Play();
+            }
+            if (gameManager.bonusScore <= 1000)
+            {
+                playerAudio.Stop();
+            }
+            return; }
         if (isJump == false)
         {
             jumpsoundCount = 0;
@@ -70,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
                 }
 
-                    animator.SetBool("Player Jump", isJump);
+               animator.SetBool("Player Jump", isJump);
                 playerRigid.velocity = Vector2.zero;
                 playerRigid.AddForce(new Vector2(0, jumpForce));
 
@@ -157,9 +169,26 @@ public class PlayerController : MonoBehaviour
             isGround = true;
             isJump = false;
             isGoal = true;
+            isGoLeft = false;
+            isGoRight = false;
+            if(SceneManager.GetActiveScene().name=="Stage1")
+            {
+            lionAnimator.SetBool("Move Left", isGoLeft);
+            lionAnimator.SetBool("Move Right", isGoRight);
+            lionAnimator.SetBool("Lion Jump", isJump);
+            }
+            if(SceneManager.GetActiveScene().name=="Stage2")
+            {
+                animator.SetBool("Player Jump", isJump);
+            }
+
             playerRigid.velocity = Vector2.zero;
             animator.SetTrigger("Goal");
             Debug.Log("°ñÀÎ");
+        }
+        if(collision.collider.tag.Equals("Dead"))
+        {
+            Die();
         }
         
 

@@ -22,10 +22,45 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == "Stage2")
+        {
+            count = 50;
+        }
+
+            int randomIdx =Random.Range(0, count);
+
         enemys = new GameObject[count];
         for(int i=0;i<count;i++)
         {
+            if(SceneManager.GetActiveScene().name=="Stage1")
+            {
+
+            if(i%5==0)
+            {
+                enemys[i] = Instantiate(smallRingPrefab, poolPosition, Quaternion.identity, stage.transform);
+            }
+            else
+            {
+
             enemys[i] = Instantiate(bigRingPrefab, poolPosition, Quaternion.identity,stage.transform);
+            }
+            }
+            else
+
+            {
+                if(i%3==0)
+                {
+
+                    enemys[i] = Instantiate(smallRingPrefab, poolPosition, Quaternion.identity, stage.transform);
+
+                }
+                else
+                {
+
+                    enemys[i] = Instantiate(bigRingPrefab, poolPosition, Quaternion.identity, stage.transform);
+                }
+
+            }
         }
         timeBetSpawn = 0f;
         lastSpawnTime = 0f;
@@ -45,11 +80,19 @@ public class EnemySpawner : MonoBehaviour
             if(SceneManager.GetActiveScene().name=="Stage1")
             {
             timeBetSpawn =Random.Range(2,6);
+            if(timeBetSpawn%2==0)
+                {
+                    timeBetSpawn += 1;
+                }
 
             }
             else if(SceneManager.GetActiveScene().name=="Stage2")
             {
-                timeBetSpawn = Random.Range(1, 4);
+                timeBetSpawn = Random.Range(2,4);
+                if (timeBetSpawn % 2 == 0)
+                {
+                    timeBetSpawn += 1;
+                }
 
             }
             enemys[currentIndex].SetActive(false);
